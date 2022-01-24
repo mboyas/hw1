@@ -99,7 +99,7 @@ CREATE TABLE characters (
   character_name TEXT
 );
 
--- Create table of directors linked to people with foreign id
+-- Create table of directors linked to people, with foreign id
 CREATE TABLE directors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   people_id INTEGER
@@ -112,7 +112,6 @@ CREATE TABLE roles (
   movie_id INTEGER,
   people_id INTEGER
 );
-
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
@@ -199,8 +198,7 @@ VALUES ("Selina Kyle");
 INSERT INTO directors (people_id)
 VALUES (12);
 
-
--- Insert data into roles table
+-- Insert data into roles table about roles in specific movies
 INSERT INTO roles (character_id, movie_id, people_id)
 VALUES (1, 1, 1);
 
@@ -269,3 +267,32 @@ FROM roles
   INNER JOIN movies on roles.movie_id = movies.id
   INNER JOIN people on roles.people_id = people.id
   INNER JOIN characters on roles.character_id = characters.id;
+
+--------------------------------
+-- My output for both reports:
+
+-- Movies
+-- ======
+
+-- Batman Begins  2005        PG-13       Christopher Nolan
+-- The Dark Knig  2008        PG-13       Christopher Nolan
+-- The Dark Knig  2012        PG-13       Christopher Nolan
+
+-- Top Cast
+-- ========
+
+-- Batman Begins  Christian Bale  Bruce Wayne   
+-- Batman Begins  Michael Caine   Alfred        
+-- Batman Begins  Liam Neeson     Ra's Al Ghul  
+-- Batman Begins  Katie Holmes    Rachel Dawes  
+-- Batman Begins  Gary Oldman     Commissioner G
+-- The Dark Knig  Christian Bale  Bruce Wayne   
+-- The Dark Knig  Heath Ledger    Joker         
+-- The Dark Knig  Aaron Eckhart   Harvey Dent   
+-- The Dark Knig  Michael Caine   Alfred        
+-- The Dark Knig  Maggie Gyllenh  Rachel Dawes  
+-- The Dark Knig  Christian Bale  Bruce Wayne   
+-- The Dark Knig  Gary Oldman     Commissioner G
+-- The Dark Knig  Tom Hardy       Bane          
+-- The Dark Knig  Joseph Gordon-  John Blake    
+-- The Dark Knig  Anne Hathaway   Selina Kyle
