@@ -70,48 +70,62 @@
 
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS people;
-DROP TABLE IF EXISTS directors;
 DROP TABLE IF EXISTS characters;
-
+DROP TABLE IF EXISTS directors;
+DROP TABLE IF EXISTS roles;
 
 -- Create new tables, according to your domain model
+
+-- My domain model has 5 tables - movies, people, characters, directors, and roles in movies
+
+-- Create movie table for basic information with foreign id that connects to director table
 CREATE TABLE movies (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT,
   year INTEGER,
-  rating TEXT
+  rating TEXT,
+  director_id INTEGER
 );
 
-CREATE TABLE characters (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  character_name TEXT,
-  movie_id INTEGER,
-  people_id INTEGER
-);
-
-CREATE TABLE directors (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  movie_id INTEGER,
-  people_id INTEGER
-);
-
+-- Create table of all relevant people who can be roles or directors
 CREATE TABLE people (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT
 );
 
+-- Create characters table for all characters in universe
+CREATE TABLE characters (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  character_name TEXT
+);
+
+-- Create table of directors linked to people with foreign id
+CREATE TABLE directors (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  people_id INTEGER
+);
+
+-- Create roles table for cast within movies, that has foreign ids linking to particular movies, characters, and people
+CREATE TABLE roles (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  character_id INTEGER,
+  movie_id INTEGER,
+  people_id INTEGER
+);
+
+
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 
 -- Insert data into movies table
-INSERT INTO movies (title, year, rating)
-VALUES ("Batman Begins", 2005, "PG-13");
+INSERT INTO movies (title, year, rating, director_id)
+VALUES ("Batman Begins", 2005, "PG-13", 1);
 
-INSERT INTO movies (title, year, rating)
-VALUES ("The Dark Knight", 2008, "PG-13");
+INSERT INTO movies (title, year, rating, director_id)
+VALUES ("The Dark Knight", 2008, "PG-13", 1);
 
-INSERT INTO movies (title, year, rating)
-VALUES ("The Dark Knight Rises", 2012, "PG-13");
+INSERT INTO movies (title, year, rating, director_id)
+VALUES ("The Dark Knight Rises", 2012, "PG-13", 1);
 
 -- Insert data into people table
 INSERT INTO people (name)
@@ -150,61 +164,87 @@ VALUES ("Anne Hathaway");
 INSERT INTO people (name)
 VALUES ("Christopher Nolan");
 
--- Insert data into characters table
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Bruce Wayne", 1, 1);
+-- Insert data about characters
+INSERT INTO characters (character_name)
+VALUES ("Bruce Wayne");
 
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Alfred", 1, 2);
+INSERT INTO characters (character_name)
+VALUES ("Alfred");
 
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Ra's Al Ghul", 1, 3);
+INSERT INTO characters (character_name)
+VALUES ("Ra's Al Ghul");
 
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Rachel Dawes", 1, 4);
+INSERT INTO characters (character_name)
+VALUES ("Rachel Dawes");
 
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Commissioner Gordon", 1, 5);
+INSERT INTO characters (character_name)
+VALUES ("Commissioner Gordon");
 
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Bruce Wayne", 2, 1);
+INSERT INTO characters (character_name)
+VALUES ("Joker");
 
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Joker", 2, 6);
+INSERT INTO characters (character_name)
+VALUES ("Harvey Dent");
 
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Harvey Dent", 2, 7);
+INSERT INTO characters (character_name)
+VALUES ("Bane");
 
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Alfred", 2, 2);
+INSERT INTO characters (character_name)
+VALUES ("John Blake");
 
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Rachel Dawes", 2, 8);
-
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Bruce Wayne", 3, 1);
-
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Commissioner Gordon", 3, 5);
-
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Bane", 3, 9);
-
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("John Blake", 3, 10);
-
-INSERT INTO characters (character_name, movie_id, people_id)
-VALUES ("Selina Kyle", 3, 11);
+INSERT INTO characters (character_name)
+VALUES ("Selina Kyle");
 
 -- Insert data about director
-INSERT INTO directors (movie_id, people_id)
-VALUES (1, 12);
+INSERT INTO directors (people_id)
+VALUES (12);
 
-INSERT INTO directors (movie_id, people_id)
-VALUES (2, 12);
 
-INSERT INTO directors (movie_id, people_id)
-VALUES (3, 12);
+-- Insert data into roles table
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (1, 1, 1);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (2, 1, 2);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (3, 1, 3);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (4, 1, 4);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (5, 1, 5);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (1, 2, 1);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (6, 2, 6);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (7, 2, 7);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (2, 2, 2);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (4, 2, 8);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (1, 3, 1);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (5, 3, 5);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (8, 3, 9);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (9, 3, 10);
+
+INSERT INTO roles (character_id, movie_id, people_id)
+VALUES (10, 3, 11);
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -214,7 +254,7 @@ VALUES (3, 12);
 -- The SQL statement for the movies output
 SELECT movies.title, movies.year, movies.rating, people.name
 FROM movies
-  INNER JOIN directors on movies.id = directors.movie_id
+  INNER JOIN directors on movies.director_id = directors.id
   INNER JOIN people on directors.people_id = people.id;
 
 -- Prints a header for the cast output
@@ -223,6 +263,9 @@ FROM movies
 .print "========"
 .print ""
 
-
 -- The SQL statement for the cast output
--- TODO!
+SELECT movies.title, people.name, characters.character_name
+FROM roles
+  INNER JOIN movies on roles.movie_id = movies.id
+  INNER JOIN people on roles.people_id = people.id
+  INNER JOIN characters on roles.character_id = characters.id;
