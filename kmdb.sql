@@ -76,7 +76,7 @@ DROP TABLE IF EXISTS roles;
 
 -- Create new tables, according to your domain model
 
--- My domain model has 5 tables - movies, people, characters, directors, and roles in movies
+-- My domain model has 5 tables: movies, people, characters, directors, and roles in movies
 
 -- Create movie table for basic information with foreign id that connects to director table
 CREATE TABLE movies (
@@ -99,7 +99,7 @@ CREATE TABLE characters (
   character_name TEXT
 );
 
--- Create table of directors linked to people, with foreign id
+-- Create table of directors with foreign id for person
 CREATE TABLE directors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   people_id INTEGER
