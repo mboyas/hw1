@@ -199,6 +199,7 @@ INSERT INTO directors (people_id)
 VALUES (12);
 
 -- Insert data into roles table about roles in specific movies
+-- Represents cast combinations in particular movie credits
 INSERT INTO roles (character_id, movie_id, people_id)
 VALUES (1, 1, 1);
 
